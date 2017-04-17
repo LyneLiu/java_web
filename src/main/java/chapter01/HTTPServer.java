@@ -47,7 +47,7 @@ public class HTTPServer {
             while(true){
                 try{
                     socket = serverSocket.accept();
-                    logger.info(String.format("build a new tcp connection with cline:"+socket.getInetAddress()+":"+socket.getPort()));
+                    logger.info(String.format("build a new tcp connection with client:"+socket.getInetAddress()+":"+socket.getPort()));
                     service(socket);
                 }catch (Exception e){
                     logger.error(String.format("socket error:"+e.getStackTrace()));
