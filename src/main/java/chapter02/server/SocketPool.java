@@ -11,6 +11,7 @@ import java.util.Properties;
  * 通过pool的方式创建socket链接，避免socket创建、销毁造成额外的性能消耗
  * Created by nn_liu on 2017/4/17.
  */
+
 public class SocketPool {
 
     private GenericObjectPool<Socket> socketPool;

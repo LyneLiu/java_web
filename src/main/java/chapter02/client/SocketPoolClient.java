@@ -28,6 +28,8 @@ public class SocketPoolClient {
             try {
                 // 从池中获取对象
                 socket = rpcSocketPool.borrowObject();
+
+                //Thread.sleep(3000);
             } catch (Exception e1) {
                 logger.error("Could not get a Socket from the pool", e1);
             }
@@ -57,7 +59,7 @@ public class SocketPoolClient {
 
         try {
             InputStream socketIn = socket.getInputStream();
-            Thread.sleep(500);
+            //Thread.sleep(500);
 
             String uri = "/rpc.properties";
 
@@ -72,7 +74,7 @@ public class SocketPoolClient {
                 System.out.println(new String(buffer));
             }
 
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
 
         } catch (Exception e) {
             logger.error("service error:" + e.getStackTrace());
@@ -83,10 +85,15 @@ public class SocketPoolClient {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 5; i++) {
-            callSyn();
+            Thread thread = new Thread(){
+                public void run(){
+                    callSyn();
+                }
+            };
+            thread.start();
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("程序运行时间： " + (endTime - startTime) / 1000 + "s");
+        //System.out.println("程序运行时间： " + (endTime - startTime) / 1000 + "s");
     }
 
 }
