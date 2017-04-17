@@ -10,12 +10,6 @@
 
   <dependencies>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-
     <!-- apache common pool -->
     <dependency>
       <groupId>org.apache.commons</groupId>
