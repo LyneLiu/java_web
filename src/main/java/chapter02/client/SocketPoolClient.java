@@ -16,6 +16,12 @@ public class SocketPoolClient {
 
     public static final Logger logger = LoggerFactory.getLogger(SocketPoolClient.class);
 
+    public static final int BYTELEN = 1024;
+
+    public static final int MILLIONSECONDS = 1000;
+
+    public static final int THREADNUM = 5;
+
     private static SocketPool rpcSocketPool;
 
     static {
@@ -58,7 +64,7 @@ public class SocketPoolClient {
     private static void service(Socket socket) {
 
         try {
-            InputStream socketIn = socket.getInputStream();
+            //InputStream socketIn = socket.getInputStream();
             //Thread.sleep(500);
 
             String uri = "/rpc.properties";
@@ -66,10 +72,10 @@ public class SocketPoolClient {
             /* path为resources路径，如/logback.xml获取配置信息 */
             InputStream resourceInputStream = HttpServer.class.getResourceAsStream(uri);
 
-            OutputStream socketOut = socket.getOutputStream();
+            //OutputStream socketOut = socket.getOutputStream();
 
             int len = 0;
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[BYTELEN];
             while ((len = resourceInputStream.read(buffer)) != -1) {
                 System.out.println(new String(buffer));
             }
@@ -84,7 +90,7 @@ public class SocketPoolClient {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < THREADNUM; i++) {
             Thread thread = new Thread(){
                 public void run(){
                     callSyn();
@@ -93,7 +99,7 @@ public class SocketPoolClient {
             thread.start();
         }
         long endTime = System.currentTimeMillis();
-        //System.out.println("程序运行时间： " + (endTime - startTime) / 1000 + "s");
+        System.out.println("程序运行时间： " + (endTime - startTime) / MILLIONSECONDS + "s");
     }
 
 }

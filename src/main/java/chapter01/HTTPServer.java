@@ -17,6 +17,12 @@ public class HTTPServer {
 
     public static final Logger logger = LoggerFactory.getLogger(HTTPServer.class);
 
+    public static final int DEFAULT_PORT = 8080;
+
+    public static final int BYTELEN = 1024;
+
+    public static final int SLEEP_MILLIONSECONDS = 1000;
+
     private int port;
 
     public int getPort() {
@@ -28,16 +34,16 @@ public class HTTPServer {
     }
 
     public HTTPServer(){
-        this.port = 8080;
+        this.port = DEFAULT_PORT;
     }
 
     public HTTPServer(int port){
-        this.port = port;
+        this.port = DEFAULT_PORT;
     }
 
 
     public static void main(String[] args) {
-        HTTPServer httpServer = new HTTPServer(8080);
+        HTTPServer httpServer = new HTTPServer(DEFAULT_PORT);
         try {
             ServerSocket serverSocket = new ServerSocket(httpServer.getPort());
             logger.info(String.format("server listening port: %d ......",serverSocket.getLocalPort()));
@@ -69,7 +75,7 @@ public class HTTPServer {
 
         try {
             InputStream socketIn  = socket.getInputStream();
-            Thread.sleep(500);
+            Thread.sleep(SLEEP_MILLIONSECONDS);
 
             int size = socketIn.available();
             byte[] buffer = new byte[size];
@@ -108,12 +114,12 @@ public class HTTPServer {
             socketOut.write(responseHeader.getBytes());
 
             int len = 0;
-            buffer = new byte[1024];
+            buffer = new byte[BYTELEN];
             while ((len = resourceInputStream.read(buffer)) != -1){
                 socketOut.write(buffer,0,len);
             }
 
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_MILLIONSECONDS);
 
         }catch (Exception e){
             logger.error("service error:"+e.getStackTrace());

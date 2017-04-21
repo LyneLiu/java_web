@@ -16,6 +16,8 @@ public class HTTPClient {
 
     public static final int port = 8080;
 
+    public static final int SLEEP_MILLIONSECONDS = 2000;
+
     public static void main(String[] args) {
         doGet(host,port,uri);
     }
@@ -37,7 +39,7 @@ public class HTTPClient {
             OutputStream socketOut = socket.getOutputStream();
             socketOut.write(requestFirstLineBuffer.toString().getBytes());
 
-            Thread.sleep(2000);
+            Thread.sleep(SLEEP_MILLIONSECONDS);
 
             InputStream socketIn = socket.getInputStream();
             int size = socketIn.available();

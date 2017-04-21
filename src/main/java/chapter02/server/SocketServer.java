@@ -13,6 +13,8 @@ public class SocketServer {
 
     public static final Logger logger = LoggerFactory.getLogger(SocketServer.class);
 
+    public static final int DEFAULT_PORT = 8080;
+
     private int port;
 
     private ServerSocket serverSocket;
@@ -26,7 +28,7 @@ public class SocketServer {
     }
 
     public SocketServer() {
-        this.port = 8080;
+        this.port = DEFAULT_PORT;
     }
 
     public SocketServer(int port) {
@@ -35,7 +37,7 @@ public class SocketServer {
 
 
     public void start() {
-        SocketServer httpServer = new SocketServer(8080);
+        SocketServer httpServer = new SocketServer(DEFAULT_PORT);
         try {
             serverSocket = new ServerSocket(httpServer.getPort());
             logger.info(String.format("server listening port: %d ......", serverSocket.getLocalPort()));

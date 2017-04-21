@@ -70,6 +70,8 @@ public class SocketFactory extends BasePooledObjectFactory<Socket>{
 
         }
 
-        return urgentFlag && connected && !closed && !inputShutdown && !outputShutdown;
+        boolean isShutdown = !(closed || inputShutdown || outputShutdown);
+
+        return urgentFlag && connected && isShutdown;
     }
 }
